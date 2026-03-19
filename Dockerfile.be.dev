@@ -1,0 +1,19 @@
+# =============================================================================
+# Lockso BE — Development build with hot-reload
+# Uses cargo-watch for automatic recompilation
+# =============================================================================
+
+FROM rust:1.94-bookworm
+
+RUN cargo install cargo-watch
+
+WORKDIR /app
+
+COPY backend/ ./backend/
+COPY migrations/ ./migrations/
+
+WORKDIR /app/backend
+
+EXPOSE 8080
+
+CMD ["cargo", "watch", "-x", "run --bin lockso", "-w", "crates"]

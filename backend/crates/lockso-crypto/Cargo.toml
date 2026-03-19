@@ -1,0 +1,23 @@
+[package]
+name = "lockso-crypto"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+argon2.workspace = true
+aes-gcm.workspace = true
+chacha20poly1305.workspace = true
+rsa.workspace = true
+sha2.workspace = true
+rand.workspace = true
+rand_core.workspace = true
+serde.workspace = true
+thiserror.workspace = true
+anyhow.workspace = true
+hex = "0.4"
+base64ct = { version = "1", features = ["alloc"] }
+sha1.workspace = true
+hmac.workspace = true
+data-encoding.workspace = true

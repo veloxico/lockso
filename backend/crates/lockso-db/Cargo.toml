@@ -1,0 +1,21 @@
+[package]
+name = "lockso-db"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+sqlx.workspace = true
+redis.workspace = true
+aws-sdk-s3.workspace = true
+aws-config.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+uuid.workspace = true
+chrono.workspace = true
+thiserror.workspace = true
+anyhow.workspace = true
+tracing.workspace = true
+tokio.workspace = true
+url.workspace = true

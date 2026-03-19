@@ -1,0 +1,36 @@
+# ─── Rust ───
+backend/target/
+**/*.rs.bk
+*.pdb
+
+# ─── Node / Frontend ───
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/tsconfig.tsbuildinfo
+
+# ─── Environment ───
+.env
+.env.local
+.env.*.local
+
+# ─── IDE ───
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ─── OS ───
+.DS_Store
+Thumbs.db
+
+# ─── Docker ───
+docker-compose.override.yml
+
+# ─── Secrets (never commit) ───
+*.pem
+*.key
+*.crt
+*.p12
+.claude/

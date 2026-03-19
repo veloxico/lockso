@@ -1,0 +1,96 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/lockso-api",
+    "crates/lockso-core",
+    "crates/lockso-crypto",
+    "crates/lockso-db",
+]
+
+[workspace.package]
+version = "0.0.1"
+edition = "2024"
+license = "AGPL-3.0-only"
+repository = "https://github.com/veloxico/lockso"
+rust-version = "1.94.0"
+
+[workspace.dependencies]
+# Web framework
+axum = { version = "0.8", features = ["macros", "multipart"] }
+axum-extra = { version = "0.10", features = ["typed-header", "cookie"] }
+tower = "0.5"
+tower-http = { version = "0.6", features = ["cors", "trace", "compression-gzip", "limit", "set-header"] }
+
+# Async runtime
+tokio = { version = "1", features = ["full"] }
+
+# Serialization
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# Database
+sqlx = { version = "0.8", features = ["runtime-tokio-rustls", "postgres", "uuid", "chrono", "migrate"] }
+
+# Redis
+redis = { version = "0.27", features = ["tokio-comp", "connection-manager"] }
+
+# S3 / MinIO
+aws-sdk-s3 = "1"
+aws-config = { version = "1", features = ["behavior-version-latest"] }
+
+# Cryptography
+argon2 = "0.5"
+aes-gcm = "0.10"
+chacha20poly1305 = "0.10"
+rsa = "0.9"
+sha2 = "0.10"
+sha1 = "0.10"
+hmac = "0.12"
+rand = "0.8"
+rand_core = { version = "0.6", features = ["std"] }
+data-encoding = "2"
+
+# OpenAPI
+utoipa = { version = "5", features = ["axum_extras", "chrono", "uuid"] }
+utoipa-swagger-ui = { version = "8", features = ["axum"] }
+
+# Logging / Tracing
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+
+# Encoding
+hex = "0.4"
+base64ct = { version = "1", features = ["alloc"] }
+base64-url = "3"
+
+# ECDSA (WebAuthn ES256)
+p256 = { version = "0.13", features = ["ecdsa"] }
+ecdsa = { version = "0.16", features = ["verifying"] }
+
+# Common
+uuid = { version = "1", features = ["v4", "v7", "serde"] }
+chrono = { version = "0.4", features = ["serde"] }
+thiserror = "2"
+anyhow = "1"
+dotenvy = "0.15"
+url = "2"
+
+# Validation
+validator = { version = "0.19", features = ["derive"] }
+
+# Email
+lettre = { version = "0.11", default-features = false, features = ["tokio1-native-tls", "builder", "smtp-transport"] }
+
+# HTTP client (for API-based email providers)
+reqwest = { version = "0.12", features = ["rustls-tls", "json"] }
+
+# Internal crates
+lockso-core = { path = "crates/lockso-core" }
+lockso-crypto = { path = "crates/lockso-crypto" }
+lockso-db = { path = "crates/lockso-db" }
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true
+opt-level = "z"

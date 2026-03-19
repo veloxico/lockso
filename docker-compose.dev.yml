@@ -1,0 +1,38 @@
+# Development override — hot-reload for both backend and frontend.
+# Usage: docker compose -f docker-compose.yml -f docker-compose.dev.yml up
+services:
+  # ─── BE dev: cargo-watch for hot-reload ───
+  lockso-be:
+    build:
+      context: .
+      dockerfile: Dockerfile.be.dev
+    volumes:
+      - ./backend:/app/backend
+      - ./migrations:/app/migrations
+      - cargo-cache:/usr/local/cargo/registry
+      - cargo-git:/usr/local/cargo/git
+      - target-cache:/app/backend/target
+    environment:
+      LOCKSO_ENV: development
+      LOCKSO_LOG_LEVEL: debug
+      LOCKSO_MIGRATIONS_PATH: /app/migrations/schema
+      RUST_BACKTRACE: 1
+
+  # ─── FE dev: Vite dev server with HMR ───
+  lockso-fe:
+    build:
+      context: .
+      dockerfile: Dockerfile.fe.dev
+    volumes:
+      - ./frontend:/app/frontend
+      - node-modules:/app/frontend/node_modules
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_URL: http://lockso-be:8080
+
+volumes:
+  cargo-cache:
+  cargo-git:
+  target-cache:
+  node-modules:
